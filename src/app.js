@@ -45,7 +45,7 @@ const startTimer = () => {
 
 
 const generateNumber = (maxLength) => {
-  return Math.floor(Math.random() * (maxLength - 1));
+  return Math.floor(Math.random() * maxLength);
 };
 
 
