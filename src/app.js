@@ -65,10 +65,6 @@ const renderCard = () => {
 
 
 window.onload = function () {
-  /* Renderiza la primera carta y activa el timer */
-  renderCard();
-  startTimer();
-
   // Event listener para el botón New Card
   const newCardButton = document.getElementById('cardGenerator');
 
@@ -103,4 +99,14 @@ window.onload = function () {
       alert("Please, type correct values for Width and Height.");
     }
   });
+
+  // Renderiza la primera carta y activa el timer
+  renderCard();
+  startTimer();
+
+  // Actualiza los valores de los campos 'width' y 'height'
+  const cardElement = document.querySelector('.card');
+  
+  document.getElementById('width').value = cardElement.offsetWidth;
+  document.getElementById('height').value = cardElement.offsetHeight;
 };
