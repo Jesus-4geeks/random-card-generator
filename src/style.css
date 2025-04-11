@@ -5,6 +5,11 @@ body{
     font-family: 'Vidaloka', serif;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+}
+
 .card {
     display: flex;
     flex-direction: column;
@@ -18,7 +23,7 @@ body{
     width: 350px;
     height: 530px;
 
-    margin: 3rem auto;
+    margin: 3rem 3rem 3rem auto;
     padding: 0 1rem;
     
     font-size: 100px;
@@ -31,4 +36,42 @@ body{
 
 .text-end {
     transform: scaleY(-1);
+}
+
+
+/* Settings */
+
+#settings {
+    display: flex;
+    flex-direction: column;
+    
+    width: 450px;
+    height: 530px;
+
+    padding: 1rem;
+    margin-top: 3rem;
+
+    /*
+    Cálculo del margen derecho del div de los settings para que la carta quede
+    centrada en pantalla, y los settings a la derecha:
+
+    (container.length/2 - card.length/2 - 1rem - settings.length)
+    */
+    margin-right: calc(50% - 175px - 3rem - 450px);
+}
+
+#settings .row.mb-4 {
+    justify-content: space-between;
+}
+
+
+/* Timer */
+div.mx-2 {
+    display: flex;
+    justify-content: center;
+    width: 50px;
+}
+
+#timer {
+    font-size: 50px;
 }

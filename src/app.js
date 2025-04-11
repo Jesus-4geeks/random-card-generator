@@ -8,30 +8,48 @@ import "./style.css";
 ♣ &#9827; Tréboles (Clubs)
 */
 
-window.onload = function () {
-  const generateNumber = (maxLength) => {
-    return Math.floor(Math.random() * (maxLength - 1));
-  };
+/* Global Variables */
+const cardNumbers = [2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K', 'A'];
+const suits = {
+  spade: "&#9824",
+  heart: "&#9829",
+  diamond: "&#9830",
+  club: "&#9827"
+};
+const suitsEntries = Object.entries(suits);
+
+/* Variables para el timer */
+let count = 10;
+let timer;
 
 
-  const changeCard = (cardNumber, suit, color) => {
-    document.querySelector(".text-start").innerHTML = suit;
-    document.querySelector(".text-center").innerHTML = cardNumber;
-    document.querySelector(".text-end").innerHTML = suit;
-    document.querySelector(".card").style.color = color;
-  };
+const resetTimer = () => {
+  count = 10;
+  document.getElementById('timer').textContent = count; // Actualiza el contador en la interfaz
+  clearInterval(timer); // Detiene el contador actual
+  startTimer(); // Reinicia el contador
+};
 
 
-  const cardNumbers = [2, 3, 4, 5, 6, 7, 8, 9, 'J', 'Q', 'K', 'A'];
-  const suits = {
-    spade: "&#9824",
-    heart: "&#9829",
-    diamond: "&#9830",
-    club: "&#9827"
-  };
-  const suitsEntries = Object.entries(suits);
+const startTimer = () => {
+  timer = setInterval(function() {
+    document.getElementById('timer').textContent = count;
+    if (count === 0) {
+      renderCard();
+      resetTimer();
+    } else {
+      count--;
+    }
+  }, 1000);
+};
 
 
+const generateNumber = (maxLength) => {
+  return Math.floor(Math.random() * (maxLength - 1));
+};
+
+
+const renderCard = () => {
   let cardNumber = generateNumber(cardNumbers.length);
   let suit = generateNumber(suitsEntries.length);
   let color = (
@@ -39,5 +57,41 @@ window.onload = function () {
     suitsEntries[suit][0] == 'club'
   ) ? '#000' : '#d00'; /* Black or Red */
 
-  changeCard(cardNumbers[cardNumber], suitsEntries[suit][1], color);
+  document.querySelector(".text-start").innerHTML = suitsEntries[suit][1];
+  document.querySelector(".text-center").innerHTML = cardNumbers[cardNumber];
+  document.querySelector(".text-end").innerHTML = suitsEntries[suit][1];
+  document.querySelector(".card").style.color = color;
+};
+
+
+window.onload = function () {
+  /* Renderiza la primera carta y activa el timer */
+  renderCard();
+  startTimer();
+
+  // Event listener para el botón Resize
+  const resizeButton = document.querySelector('.btn');
+
+  resizeButton.addEventListener('click', () => {
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    const cardElement = document.querySelector('.card');
+
+    const width = parseInt(widthInput.value, 10);
+    const height = parseInt(heightInput.value, 10);
+
+    if (!isNaN(width) && !isNaN(height)) {
+      // Cambia el tamaño de la carta
+      cardElement.style.width = `${width}px`;
+      cardElement.style.height = `${height}px`;
+
+      // Actualiza el margen derecho de 'settings'
+      document.getElementById('settings').style.marginRight = `calc(50% - ${width/2}px - 3rem - 450px)`;
+      
+      // Resetea el contador a 10
+      resetTimer();
+    } else {
+      alert("Please, type correct values for Width and Height.");
+    }
+  });
 };
