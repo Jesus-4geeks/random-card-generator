@@ -69,6 +69,15 @@ window.onload = function () {
   renderCard();
   startTimer();
 
+  // Event listener para el botón New Card
+  const newCardButton = document.getElementById('cardGenerator');
+
+  newCardButton.addEventListener('click', () => {
+    // Genera la nueva carta y resetea el timer
+    renderCard();
+    resetTimer();
+  });
+
   // Event listener para el botón Resize
   const resizeButton = document.querySelector('.btn');
 

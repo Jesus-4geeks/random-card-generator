@@ -64,6 +64,10 @@ body{
     justify-content: space-between;
 }
 
+#cardGenerator button {
+    background-color: #d00;
+}
+
 
 /* Timer */
 div.mx-2 {
